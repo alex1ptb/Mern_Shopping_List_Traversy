@@ -31,7 +31,7 @@ class ShoppingList extends Component {
                   size = "small"
                   onClick ={this.onDeleteClick.bind(this,_id)} 
                   variant="x"
-                >
+                >X
                   </Button>
                 {name}
               </ListGroupItem>
