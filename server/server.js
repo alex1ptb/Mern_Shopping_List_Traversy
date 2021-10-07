@@ -1,27 +1,26 @@
 //libraries required
 const express = require("../node_modules/express");
 const mongoose = require("../node_modules/mongoose");
-const bodyParser = require("../node_modules/body-parser");
 const path = require("path");
 
 //local required
-const items = require('./routes/api/items');
 const app = express();
 
 // BodyParser Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // DB Config
 const db = require('./config/keys').mongoURI;
 
 // Connect to Mongo
 mongoose
-	.connect(db,{useNewUrlParser: true,useUnifiedTopology: true} )
+	.connect(db,{useNewUrlParser: true,useUnifiedTopology: true, useCreateIndex: true} )
 	.then(() => console.log('MongoDB Connected...'))
 	.catch(err=> console.log(err))
 
 //Use Routes
-app.use('/api/items', items);
+app.use('/api/items', require('./routes/api/items'));
+app.use('/api/users', require('./routes/api/users'));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production' ){
